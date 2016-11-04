@@ -37,6 +37,9 @@ export default class ExampleComponent extends Component {
 # Available Props
 
 - `onSearchChange`: Callback on search change
+- `onFocus`: Callback when the text input receives focus
+- `onBlur`: Callback when the text input loses focus
+- `onSubmit`: Callback when the text input's submit button is pressed
 - `iconCloseName`: Optional string, use it to customize the close icon
 - `iconSearchName`: Optional string, use it to customize the search icon
 - `iconBackName`: Optional string, use it to customize the back icon
@@ -46,6 +49,8 @@ export default class ExampleComponent extends Component {
 - `returnKeyType`: Optional string, use it to customize the return key type
 - `padding`: Optional string, use it to define a different padding size, default is `5`
 - `inputStyle`: Optional string, use it to pass your style to the `TextInput`
+- `blurOnSubmit`: Optional boolean, use it to specify whether the text field should blur when submitted
+
 
 
 The React packager will include the SearchBar component in your app's JS package and make it available for your app to use.
