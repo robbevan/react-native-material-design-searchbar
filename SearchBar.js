@@ -39,7 +39,8 @@ export default class SearchBar extends React.Component {
     iconSearchName: PropTypes.string,
     iconBackName: PropTypes.string,
     placeholderColor: PropTypes.string,
-    iconColor: PropTypes.string
+    iconColor: PropTypes.string,
+    blurOnSubmit:  PropTypes.bool
   }
 
   static defaultProps = {
@@ -52,7 +53,8 @@ export default class SearchBar extends React.Component {
     returnKeyType: "search",
     padding: 5,
     placeholderColor: "#bdbdbd",
-    iconColor: "#737373"
+    iconColor: "#737373",
+    blurOnSubmit: true
   }
 
   constructor(props) {
@@ -62,16 +64,10 @@ export default class SearchBar extends React.Component {
     };
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
     this._onClose = this._onClose.bind(this);
   }
 
-  _onClose() {
-    this._textInput.setNativeProps({ text: '' });
-    this.props.onSearchChange({ nativeEvent: { text : ''}});
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
-  }
 
   _onFocus() {
     this.setState({ isOnFocus: true });
@@ -86,6 +82,20 @@ export default class SearchBar extends React.Component {
       this.props.onBlur();
     }
     this._dismissKeyboard();
+  }
+
+  _onSubmit() {
+    if (this.props.onSubmit) {
+      this.props.onSubmit();
+    }
+  }
+
+  _onClose() {
+    this._textInput.setNativeProps({ text: '' });
+    this.props.onSearchChange({ nativeEvent: { text : ''}});
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
   }
 
   _dismissKeyboard () {
@@ -105,7 +115,8 @@ export default class SearchBar extends React.Component {
       iconBackName,
       iconSearchName,
       iconCloseName,
-      placeholderColor
+      placeholderColor,
+      blurOnSubmit
     } = this.props;
 
     let { iconSize } = this.props
@@ -148,6 +159,8 @@ export default class SearchBar extends React.Component {
             returnKeyType={returnKeyType}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
+            onSubmitEditing={this._onSubmit}
+            blurOnSubmit={blurOnSubmit}
             onChange={onSearchChange}
             placeholder={placeholder}
             placeholderTextColor={placeholderColor}
